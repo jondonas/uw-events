@@ -1,0 +1,11 @@
+<p>Hello {{ name }},</p>
+<p>Here is a list of events for this week!</p>
+<br>
+{% for row in events %}
+    <li><a href="{{row.1}}">{{row.0}}</a></li><br>
+{% endfor%}
+<p>You can find out about more uWaterloo events here:</p>
+<p><a href="{{home}}">{{home}}</a></p>
+<br><br>
+
+<p>You can unsubscribe by clicking the following link (to be added):</p>

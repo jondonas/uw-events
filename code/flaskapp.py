@@ -8,7 +8,7 @@ from flask import request
 from flask import url_for
 
 # app = Flask(__name__)
-app.config['DEBUG'] = True
+#app.config['DEBUG'] = True
 
 
 @app.route("/")

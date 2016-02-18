@@ -1,4 +1,5 @@
 from flask import Flask
+from flask import render_template
 from flask_mail import Mail
 from flask_mail import Message
 from flaskext.mysql import MySQL
@@ -6,7 +7,7 @@ from itsdangerous import URLSafeTimedSerializer
 
 app = Flask(__name__)
 # uncomment to turn on debugging
-app.config['DEBUG'] = True
+#app.config['DEBUG'] = True
 
 app.config.update(
   # EMAIL SETTINGS
@@ -32,11 +33,30 @@ mysql.init_app(app)
 
 def send_email(to, subject, template):
     msg = Message(
-        subject,
-        recipients=[to],
-        html=template,
-        sender=app.config['MAIL_USERNAME']
-    )
+                subject,
+                recipients=[to],
+                html=template,
+                sender="notify@uwevents.gq")
     mail.send(msg)
+
+def send_bulk_email(subList, yourevents, homepage):
+    with mail.connect() as conn:
+        
+        subject = "This Week's Events"
+        for user in subList:
+            if user[3] == 1:
+                yourname = user[1]
+                youremail = user[2]
+                with app.app_context():
+                    template = render_template('event-notify.html',
+                                        name=yourname,
+                                        events=yourevents,
+                                        home=homepage)
+                    msg = Message(
+                                subject,
+                                recipients=[youremail],
+                                html=template,
+                                sender="notify@uwevents.gq")
+                    conn.send(msg)
 
 key = URLSafeTimedSerializer(app.config["SECRET_KEY"])
