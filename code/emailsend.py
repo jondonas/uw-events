@@ -19,7 +19,8 @@ cursor = conn.cursor()
 cursor.execute("SELECT * FROM users;")
 subscribers = cursor.fetchall()
 
-send_bulk_email(subscribers, yourevents, feed.feed.link)
+if subscribers:
+    send_bulk_email(subscribers, yourevents, feed.feed.link)
 
 cursor.close()
 conn.close()

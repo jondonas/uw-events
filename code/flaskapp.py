@@ -15,6 +15,10 @@ from flask import url_for
 def main():
     return render_template('index.html')
 
+# sign-up page
+@app.route('/showSignUp')
+def showSignUp():
+    return render_template('sign-up.html')
 
 @app.route('/signup', methods=['POST'])
 def signUp():
