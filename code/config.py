@@ -4,6 +4,7 @@ from flask_mail import Mail
 from flask_mail import Message
 from flaskext.mysql import MySQL
 from itsdangerous import URLSafeTimedSerializer
+from passwords import conf
 
 app = Flask(__name__)
 # uncomment to turn on debugging
@@ -14,11 +15,11 @@ app.config.update(
     MAIL_SERVER = 'smtp.gmail.com',
     MAIL_PORT = 465,
     MAIL_USE_SSL = True,
-    MAIL_USERNAME = 'email',
-    MAIL_PASSWORD = 'password',
+    MAIL_USERNAME = conf.email_user,
+    MAIL_PASSWORD = conf.email_pass,
   # MySQL configurations
     MYSQL_DATABASE_USER = 'root',
-    MYSQL_DATABASE_PASSWORD = 'password',
+    MYSQL_DATABASE_PASSWORD = conf.sql_pass,
     MYSQL_DATABASE_DB = 'uwevents',
     MYSQL_DATABASE_HOST = 'localhost',
   # Secret Passwords!
