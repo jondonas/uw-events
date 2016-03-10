@@ -1,6 +1,8 @@
 #uw-events
 
-##Dependencies
+Create by Jonathan Donas, Ryan Newman, Neo Chen, Rolina Wu, and Joe Wang
+
+##Flask and MySQL
 
 ###This application uses python 2.x
 
@@ -23,4 +25,68 @@ CREATE TABLE users (
  confirmed BOOLEAN NOT NULL DEFAULT 0);
 ```
 
+##NGINX, uWGSI, Supervisor
 NGINX is now implented as a reverse proxy to uWSGI. uWSGI serves instance of the Flask application. Supervisor ensures that uWSGI is always running. This will make the website significantly faster and more reliable.
+
+```
+sudo apt-get install nginx python-dev supervisor
+sudo pip install uwsgi
+```
+
+###Configuration:
+
+####/etc/nginx/nginx.conf
+
+Add in http{} block
+
+```
+server {
+
+        # Running port
+        listen 80;
+
+        # Settings to by-pass for static files
+        location  /static  {
+                alias /home/bogo/uw-events/code/static/;
+        }
+
+        # Proxying connections to application servers
+        location / {
+                include            uwsgi_params;
+                uwsgi_pass         127.0.0.1:8080;
+        }
+    }
+```
+
+####/etc/supervisor/supervisord.conf
+
+Add to bottom of file
+
+```
+[program:uw-events]
+command=sudo uwsgi --socket 127.0.0.1:8080 --enable-threads --single-interpreter --vacuum --master --chdir /home/bogo/uw-events/code/ --processes 2 -w wsgi:app
+stopsignal=QUIT
+autostart=true
+autorestart=true
+startsecs=2
+```
+
+####/etc/init/supervisor.conf
+
+Create this file to start supervisor on reboot
+
+```
+description     "supervisord"
+start on runlevel [2345]
+stop on runlevel [!2345]
+respawn
+respawn limit 10 5
+umask 022
+env SSH_SIGSTOP=1
+expect stop
+console none
+pre-start script
+        test -x /usr/bin/supervisord || { stop; exit 0; }
+end script
+exec /usr/bin/supervisord
+```

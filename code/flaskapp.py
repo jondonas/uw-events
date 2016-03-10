@@ -8,7 +8,7 @@ from flask import request
 from flask import url_for
 
 # app = Flask(__name__)
-app.config['DEBUG'] = True
+#app.config['DEBUG'] = True
 
 
 @app.route("/")
@@ -43,10 +43,6 @@ def signUp():
                               (email)):
                 return render_template("already-used.html")
             else:
-                # creates user
-                cursor.execute('INSERT INTO users (name,email) VALUES (%s,%s)',
-                               (name, email))
-                conn.commit()
                 # sends confirmation email
                 token = key.dumps(email, salt='email-confirm-key')
                 confirm_url = url_for('confirm_email',
@@ -56,6 +52,10 @@ def signUp():
                                        confirm_url=confirm_url,
                                        confirm_name=name)
                 send_email(email, subject, html)
+                #creates user
+                cursor.execute('INSERT INTO users (name,email) VALUES (%s,%s)',
+                               (name, email))
+                conn.commit()
                 return render_template('confirmation.html')
         else:
             return json.dumps({'html':
@@ -63,7 +63,11 @@ def signUp():
         cursor.close()
         conn.close()
     except Exception as e:
-        return json.dumps({'error1': str(e)})
+        print e
+        if "not a valid RFC-5321 address" in str(e):
+            return render_template('invalid.html')
+        else:
+            return json.dumps({'error1': str(e)})
 
 
 @app.route('/confirm/<token>')
