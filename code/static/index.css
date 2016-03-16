@@ -1,4 +1,8 @@
-
+body {
+  font-family: 'Lora', 'Times New Roman', serif;
+  font-size: 20px;
+  color: #404040;
+}
 dy {
   font-family: 'Lora', 'Times New Roman', serif;
   font-size: 20px;
@@ -66,12 +70,6 @@ hr.small {
   .navbar-custom .navbar-brand {
     color: #FFFFFF;
     padding: 20px;
-    text-shadow:
-    3px 3px 0 #000,
-   -1px -1px 0 #000,  
-    1px -1px 0 #000,
-   -1px  1px 0 #000,
-    1px  1px 0 #000;
   }
   .navbar-custom .navbar-brand:hover,
   .navbar-custom .navbar-brand:focus {
@@ -80,12 +78,6 @@ hr.small {
   .navbar-custom .nav li a {
     color: #FFFFFF;
     padding: 20px;
-      text-shadow:
-    3px 3px 0 #000,
-   -1px -1px 0 #000,  
-    1px -1px 0 #000,
-   -1px  1px 0 #000,
-    1px  1px 0 #000;
   }
   .navbar-custom .nav li a:hover,
   .navbar-custom .nav li a:focus {
@@ -465,4 +457,11 @@ img::-moz-selection {
 }
 body {
   webkit-tap-highlight-color: #0085a1;
+}
+.side-head{
+    text-align: center;
+}
+.side-head a{
+    text-decoration: underline;
+    color: blue;
 }
