@@ -22,13 +22,6 @@
     <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
 </head>
 
 <body>
@@ -44,14 +37,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/about">About UW Events</a>
+                <a class="navbar-brand" href="/~/about">About UW Events</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="/showSignUp">Sign Up</a>
+                        <a href="/~/signup">Sign Up</a>
                     </li>
                 </ul>
             </div>
@@ -64,73 +57,36 @@
     <header class="intro-header" style="background-image: url('/static/waterloo1.png')">
         <div class="container">
                     <div class="site-heading">
-                        <h1>Event Notifications:</h1>
+                        <h1>uWaterloo Event Notifications:</h1>
                         <ul class="button">
                             <li class="next">
-                                <a href="/showSignUp">Sign Up</a>
+                                <a href="/~/signup">Sign Up</a>
                             </li>
                         </ul>
                     </div>
                 </div>
            
     </header>
-
     <!-- Main Content -->
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-preview">
-                    <a href=#>
+                    <a href='https://uwaterloo.ca/events/events'>
                         <h1 class="post-title">
-                            University of Waterloo
+                            Upcoming Events
                         </h1>
-                        <br><br>
+                        <br>
                     </a>
                     <hr>
                 </div>
-                <div class="post-preview">
-                    <a href=#>
-                        <h2 class="post-title">
-                            LIGHT Illuminated Exhibition
-                        </h2>
-                    </a>
-                    <time>Thursday, October 15, 2015 - 10:00 AM to Monday, March 28, 2016 - 4:00 PM EDT</time>
-                    <p class="post-subtitle">
-                        (Example Event) Revel in art and technology while learning about the value of light through interactive installations at THEMUSEUM presented in partnership by the University of Waterloo, UWaterloo’s student chapter of The Optical Society, and the Institute for Quantum Computing.
-                    </p>
-                    <hr>
-                </div>
-                <div class="post-preview">
-                    <a href=#>
-                        <h2 class="post-title">
-                            As the Women Sew: Community Quilts of Mampuján, Colombia
-                        </h2>
-                    </a>
-                    <time>Monday, January 11, 2016 - 8:30 AM EST to Saturday, April 23, 2016 - 5:00 PM EDT</time>
-                    <p class="post-subtitle">
-                        The MSCU Centre for Peace Advancement is excited to announce our Winter 2016 Grebel Gallery exhibit, As the women sew: Community quilts of Mampuján, Colombia.
-                    </p>
-                    <hr>    
-                </div>
-                <div class="post-preview">
-                    <a href=#>
-                        <h2 class="post-title">
-                            CIBC Employer Information Session
-                        </h2>
-                    </a>
-                    <time>Monday, February 22, 2016 - 5:00 PM to 7:00 PM EST</time>
-                    <p class="post-subtitle">
-                        For Junior,<br/> 
-                        Intermediate,<br/>
-                        Senior Co-op Students<br/>
-MATH - Statistics, MATH - Information Technology Management, MATH - Computer Science, MATH - Combinatorics & Optimization, ENG - Software, ENG - Electrical, ENG - Computer, ARTS - Arts & Business
-
-Please register if you will be attending this session or cancel the session if you have registered for this and no longer want to attend it.
-                    </p>
-                    <hr>
-                </div>
-                <div class="load-more">
-                    <!-- Pager -->
+    <?php
+        include('rss.php');
+        $feed_url = 'https://uwaterloo.ca/events/events/events.xml';
+        $feedlist = new rss($feed_url);
+        $feeds = $feedlist->display(10,"Upcoming Events");
+        echo $feeds;
+    ?>
                     <ul class="pager">
                         <li class="next">
                             <a href="#">Older Posts &rarr;</a>

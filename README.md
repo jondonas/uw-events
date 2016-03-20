@@ -7,7 +7,7 @@ Create by Jonathan Donas, Ryan Newman, Neo Chen, Rolina Wu, and Joe Wang
 ###This application uses python 2.x
 
 ```
-sudo apt-get install mysql-server python-mysqldb
+sudo apt-get install mysql-server python-mysqldb php5-fpm
 sudo pip install Flask Flask-Mail itsdangerous requests feedparser
 ```
 
@@ -44,16 +44,29 @@ server {
 
         # Running port
         listen 80;
+        server_name www.uwevents.gq;
+        root /home/bogo/uw-events/code/static/;
 
         # Settings to by-pass for static files
         location  /static  {
-                alias /home/bogo/uw-events/code/static/;
+            alias /home/bogo/uw-events/code/static/;
+        }
+
+        location  /~  {
+            include            uwsgi_params;
+            uwsgi_pass         127.0.0.1:8080;
         }
 
         # Proxying connections to application servers
         location / {
-                include            uwsgi_params;
-                uwsgi_pass         127.0.0.1:8080;
+            index index.php index.html index.htm;
+        }
+
+        location ~ \.php$ {
+            fastcgi_split_path_info ^(.+\.php)(/.+)$;
+            fastcgi_pass unix:/var/run/php5-fpm.sock;
+            fastcgi_index index.php;
+            include fastcgi_params;
         }
     }
 ```

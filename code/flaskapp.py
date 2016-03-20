@@ -7,25 +7,17 @@ from flask import render_template
 from flask import request
 from flask import url_for
 
-# app = Flask(__name__)
-#app.config['DEBUG'] = True
-
-
-@app.route("/")
-def main():
-    return render_template('index.html')
-
 # sign-up page
-@app.route('/showSignUp')
-def showSignUp():
+@app.route('/~/signup')
+def signup():
     return render_template('sign-up.html')
 
-@app.route('/about')
+@app.route('/~/about')
 def about():
     return render_template('about-us.html')
 
-@app.route('/signup', methods=['POST'])
-def signUp():
+@app.route('/~/process', methods=['POST'])
+def process():
     try:
         conn = mysql.connect()
         cursor = conn.cursor()
@@ -62,8 +54,7 @@ def signUp():
                 conn.commit()
                 return render_template('confirmation.html')
         else:
-            return json.dumps({'html':
-                               '<span>Enter the required fields</span>'})
+            return render_template("required.html")
         cursor.close()
         conn.close()
     except Exception as e:
@@ -74,7 +65,7 @@ def signUp():
             return json.dumps({'error1': str(e)})
 
 
-@app.route('/confirm/<token>')
+@app.route('/~/confirm/<token>')
 def confirm_email(token):
     try:
         email = key.loads(token, salt="email-confirm-key", max_age=172800)
@@ -103,6 +94,3 @@ def confirm_email(token):
             return str(e)
     cursor.close()
     conn.close()
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=80)
