@@ -1,6 +1,6 @@
 #uw-events
 
-Create by Jonathan Donas, Ryan Newman, Neo Chen, Rolina Wu, and Joe Wang
+Created by Jonathan Donas, Ryan Newman, Neo Chen, Rolina Wu, and Joe Wang
 
 ##Flask and MySQL
 
@@ -67,6 +67,7 @@ server {
             fastcgi_pass unix:/var/run/php5-fpm.sock;
             fastcgi_index index.php;
             include fastcgi_params;
+            fastcgi_read_timeout 300;
         }
     }
 ```

@@ -105,7 +105,7 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <p class="copyright text-muted">Copyright &copy; UW Events 2016</p>
-                    <p class="copyright text-muted">Created by: Neo Chen, Jonathan Donas, Ryan Newman, Rolina Wu and Wang Yang</p>
+                    <p class="copyright text-muted">Created by: Jonathan Donas, Ryan Newman, Rolina Wu, Neo Chen and Wang Yang</p>
                 </div>
             </div>
         </div>
