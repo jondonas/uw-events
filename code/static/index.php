@@ -87,12 +87,6 @@
         $feeds = $feedlist->display(10,"Upcoming Events");
         echo $feeds;
     ?>
-                    <ul class="pager">
-                        <li class="next">
-                            <a href="#">Older Posts &rarr;</a>
-                        </li>
-                    </ul>
-                </div>
             </div>
         </div>
     </div>
